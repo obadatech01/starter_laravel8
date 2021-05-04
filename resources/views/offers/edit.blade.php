@@ -62,7 +62,7 @@
 
         <div class="container mt-5 text-center">
             <div class="title m-b-md mb-5">
-                <h1>Add your offer</h1>
+                <h1>Update your offer</h1>
             </div>
 
             @if (Session::has('success'))
@@ -72,11 +72,12 @@
             @endif
             <br>
 
-            <form action="{{route('offers.store')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('offers.update', $offer->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
+
                 <div class="mb-5">
                     <label for="photo" class="form-label">Offer Photo</label>
-                    <input type="file" class="form-control" name="photo" placeholder="Offer Photo" id="photo">
+                    <input type="file" class="form-control" name="photo" value="{{$offer->photo}}" placeholder="Offer Photo" id="photo">
                     @error('photo')
                         <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -84,7 +85,7 @@
 
                 <div class="mb-5">
                     <label for="offername" class="form-label">Offer Name</label>
-                    <input type="text" class="form-control" name="name" placeholder="Offer Name" id="offername">
+                    <input type="text" class="form-control" name="name" value="{{$offer->name}}" placeholder="Offer Name" id="offername">
                     @error('name')
                         <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -92,7 +93,7 @@
 
                 <div class="mb-5">
                     <label for="offerprice" class="form-label">Offer Price</label>
-                    <input type="text" class="form-control" name="price" placeholder="Offer Price" id="offerprice">
+                    <input type="text" class="form-control" name="price" value="{{$offer->price}}" placeholder="Offer Price" id="offerprice">
                     @error('price')
                         <small class="form-text text-danger">{{$message}}</small>
                     @enderror
@@ -100,7 +101,7 @@
 
                 <div class="mb-5">
                     <label for="offerdetails" class="form-label">Offer Details</label>
-                    <input type="text" class="form-control" name="details" placeholder="Offer Details" id="offerdetails">
+                    <input type="text" class="form-control" name="details" value="{{$offer->details}}" placeholder="Offer Details" id="offerdetails">
                     @error('details')
                         <small class="form-text text-danger">{{$message}}</small>
                     @enderror

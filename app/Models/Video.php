@@ -5,15 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Offer extends Model
+class Video extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
-        'price',
-        'details',
-        'photo',
+        'viewers',
         'created_at',
         'updated_at',
     ];

@@ -32,9 +32,31 @@ Route::group(['prefix'=>'offers'], function () {
     Route::get('create', [App\Http\Controllers\CrudController::class, 'create'])->name('offers.create');
     Route::post('store', [App\Http\Controllers\CrudController::class, 'store'])->name('offers.store');
 
+    Route::get('edit/{offer_id}', [App\Http\Controllers\CrudController::class, 'editOffer'])->name('offers.edit');
+    Route::post('update/{offer_id}', [App\Http\Controllers\CrudController::class, 'updateOffer'])->name('offers.update');
+    Route::get('delete/{offer_id}', [App\Http\Controllers\CrudController::class, 'delete'])->name('offers.delete');
+
     Route::get('all', [App\Http\Controllers\CrudController::class, 'getAllOffers'])->name('offers.all');
 
+    Route::get('youtube', [App\Http\Controllers\CrudController::class, 'getVideo']);
+
 });
+
+##########Begin Ajax Routes#########
+
+Route::group(['prefix'=>'ajax-offers'], function () {
+
+    Route::get('create', [App\Http\Controllers\OfferController::class, 'create'])->name('ajax.offers.create');
+    Route::post('store', [App\Http\Controllers\OfferController::class, 'store'])->name('ajax.offers.store');
+    Route::get('all', [App\Http\Controllers\OfferController::class, 'all'])->name('ajax.offers.all');
+    Route::post('delete', [App\Http\Controllers\OfferController::class, 'delete'])->name('ajax.offers.delete');
+    // Route::get('edit/{offer_id}', 'OfferController@edit')->name('ajax.offers.edit');
+    // Route::post('update', 'OfferController@Update')->name('ajax.offers.update');
+
+});
+
+##########End Ajax Routes#########
+
 
 
 
