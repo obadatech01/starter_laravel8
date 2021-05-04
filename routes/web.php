@@ -24,4 +24,17 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/fillable', [App\Http\Controllers\CrudController::class, 'getOffers']);
+
+Route::group(['prefix'=>'offers'], function () {
+    // Route::get('store', [App\Http\Controllers\CrudController::class, 'store']);
+
+    Route::get('create', [App\Http\Controllers\CrudController::class, 'create'])->name('offers.create');
+    Route::post('store', [App\Http\Controllers\CrudController::class, 'store'])->name('offers.store');
+
+    Route::get('all', [App\Http\Controllers\CrudController::class, 'getAllOffers'])->name('offers.all');
+
+});
+
+
+
