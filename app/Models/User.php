@@ -22,6 +22,7 @@ class User extends Authenticatable
         'password',
         'mobile',
         'expire',
+        'age',
     ];
 
     /**
@@ -42,4 +43,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    ###########Begin Relations##########
+
+     public function phone()
+     {
+         return $this->hasOne('App\Models\Phone', 'user_id');
+     }
+
+    ###########End Relations##########
 }

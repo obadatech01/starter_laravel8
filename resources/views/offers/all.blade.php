@@ -130,8 +130,8 @@
 
         </tr>
     @endforeach
-
     </tbody>
 </table>
+<div class="container mt-5 text-center">{{$offers->links()}}</div>
 </body>
 </html>

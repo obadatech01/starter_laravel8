@@ -28,6 +28,7 @@ class OfferController extends Controller
             'name' => $request->name,
             'price' => $request->price,
             'details' => $request->details,
+            'status' => 1,
         ]);
 
         if($offer)

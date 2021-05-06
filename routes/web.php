@@ -14,9 +14,15 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+define('PAGINATION_COUNT', 4);
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/dashboard', function () {
+    return 'Not Adault';
+})->name('not.adault');
 
 Auth::routes(['verify'=> true]);
 
@@ -37,8 +43,9 @@ Route::group(['prefix'=>'offers'], function () {
     Route::get('delete/{offer_id}', [App\Http\Controllers\CrudController::class, 'delete'])->name('offers.delete');
 
     Route::get('all', [App\Http\Controllers\CrudController::class, 'getAllOffers'])->name('offers.all');
+    Route::get('get-all-inactive-offer', [App\Http\Controllers\CrudController::class, 'getAllInactiveOffers'])->name('offers.inactive');
 
-    Route::get('youtube', [App\Http\Controllers\CrudController::class, 'getVideo']);
+    Route::get('youtube', [App\Http\Controllers\CrudController::class, 'getVideo'])->middleware('auth');
 
 });
 
@@ -54,9 +61,41 @@ Route::group(['prefix'=>'ajax-offers'], function () {
     // Route::post('update', 'OfferController@Update')->name('ajax.offers.update');
 
 });
-
 ##########End Ajax Routes#########
 
 
+##################### Begin Authentication && Guards ##############
+
+Route::group(['middleware' => 'CheckAge'], function () {
+    Route::get('adaults', [App\Http\Controllers\CustomAuthController::class, 'adault'])->name('adault');
+});
+
+Route::get('site', [App\Http\Controllers\CustomAuthController::class, 'site'])->middleware('auth:web')->name('site');
+Route::get('admin', [App\Http\Controllers\CustomAuthController::class, 'admin'])->middleware('auth:admin')->name('admin');
+
+Route::get('admin/login', [App\Http\Controllers\CustomAuthController::class, 'adminLogin'])->name('admin.login');
+Route::post('admin/login', [App\Http\Controllers\CustomAuthController::class, 'checkAdminLogin'])->name('save.admin.login');
+
+
+################### Begin relations  routes ######################
+
+Route::get('has-one', [App\Http\Controllers\Relation\RelationsController::class, 'hasOneRelation']);
+
+// Route::get('has-one-reserve','Relation\RelationsController@hasOneRelationReverse');
+
+// Route::get('get-user-has-phone','Relation\RelationsController@getUserHasPhone');
+
+// Route::get('get-user-has-phone-with-condition','Relation\RelationsController@getUserWhereHasPhoneWithCondition');
+
+// Route::get('get-user-not-has-phone','Relation\RelationsController@getUserNotHasPhone');
+
+
+################### End relations  routes ######################
+
+#######################  Begin accessors and mutators ###################
+
+Route::get('offers/accessors', [App\Http\Controllers\CrudController::class, 'getAllOffersByAccessorAndMutator'])->name('offers.accessor'); //get data
+
+#######################  End accessors and mutators ###################
 
 
